@@ -38,3 +38,12 @@ module "bastion_sg" {
     vpc_id = data.aws_ssm_parameter.vpc_id.value
     common_tags = var.common_tags
 }
+module "app_alb_sg" {
+    source = "git::https://github.com/DevOpsSkillUp/Terraform.git//modules/custom_templates/aws_sg?ref=main"
+    project_name = var.project_name
+    environment = var.environment
+    sg_name = "app-alb" 
+    sg_description = "Created for backend  ALB in expense dev"
+    vpc_id = data.aws_ssm_parameter.vpc_id.value
+    common_tags = var.common_tags
+}
