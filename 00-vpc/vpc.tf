@@ -11,3 +11,15 @@ module "vpc" {
     is_peering_required = true
 }
 
+# this can be included in module, ask team lead to add it in the module or use it as a separate resource as below
+resource "aws_db_subnet_group" "expense" { 
+  name       = "${var.project_name}-${var.environment}"
+  subnet_ids = module.vpc.database_subnet_ids  # DB subnet group --> group of DB subnets
+
+  tags = merge(
+    var.common_tags,
+    {
+        Name = "${var.project_name}-${var.environment}"
+    }
+  )
+}
