@@ -65,10 +65,11 @@ module "db" {
   )
 }
 
+# Create a Route53 CNAME record for the RDS instance endpoint address 
 resource "aws_route53_record" "www-dev" {
   zone_id = var.zone_id
   name    = "mysql-${var.environment}.${var.domain_name}"
   type    = "CNAME"
   ttl     = 5
-  records = [module.db.db_instance_address]
+  records = [module.db.db_instance_address]  # check the output variable name in the module
 }
